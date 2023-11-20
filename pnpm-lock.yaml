@@ -7,13 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      header:
-        specifier: ^0.1.1
-        version: registry.npmmirror.com/header@0.1.1
-      react:
-        specifier: ^18.2.0
-        version: registry.npmmirror.com/react@18.2.0
     devDependencies:
       lerna:
         specifier: ^7.4.2
@@ -21,7 +14,11 @@ importers:
 
   packages/footer: {}
 
-  packages/header: {}
+  packages/header:
+    dependencies:
+      react-router:
+        specifier: ^6.19.0
+        version: registry.npmmirror.com/react-router@6.19.0(react@18.2.0)
 
   packages/remixapp:
     dependencies:
@@ -646,6 +643,13 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  registry.npmmirror.com/@remix-run/router@1.12.0:
+    resolution: {integrity: sha512-2hXv036Bux90e1GXTWSMfNzfDDK8LA8JYEWfyHxzvwdp6GyoWEovKc9cotb3KCKmkdwsIBuFGX7ScTWyiHv7Eg==, tarball: https://registry.npmmirror.com/@remix-run/router/-/router-1.12.0.tgz}
+    name: '@remix-run/router'
+    version: 1.12.0
+    engines: {node: '>=14.0.0'}
+    dev: false
 
   registry.npmmirror.com/@sigstore/bundle@1.1.0:
     resolution: {integrity: sha512-PFutXEy0SmQxYI4texPw3dd2KewuNqv7OuK1ZFtY2fM754yhvG2KdgwIhRnoEE2uHdtdGNQ8s0lb94dW9sELog==, tarball: https://registry.npmmirror.com/@sigstore/bundle/-/bundle-1.1.0.tgz}
@@ -2161,12 +2165,6 @@ packages:
     dependencies:
       function-bind: registry.npmmirror.com/function-bind@1.1.2
     dev: true
-
-  registry.npmmirror.com/header@0.1.1:
-    resolution: {integrity: sha512-UqVUZreZFsYs6LHyVHdLLUJKMVcsp1aAbg4hzvJz1eJ7FzPaVtruHcyQb5xdqe63XleCi6uMIrUyoqmEgpX1OA==, tarball: https://registry.npmmirror.com/header/-/header-0.1.1.tgz}
-    name: header
-    version: 0.1.1
-    dev: false
 
   registry.npmmirror.com/hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==, tarball: https://registry.npmmirror.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz}
@@ -4055,6 +4053,19 @@ packages:
     name: react-is
     version: 18.2.0
     dev: true
+
+  registry.npmmirror.com/react-router@6.19.0(react@18.2.0):
+    resolution: {integrity: sha512-0W63PKCZ7+OuQd7Tm+RbkI8kCLmn4GPjDbX61tWljPxWgqTKlEpeQUwPkT1DRjYhF8KSihK0hQpmhU4uxVMcdw==, tarball: https://registry.npmmirror.com/react-router/-/react-router-6.19.0.tgz}
+    id: registry.npmmirror.com/react-router/6.19.0
+    name: react-router
+    version: 6.19.0
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      '@remix-run/router': registry.npmmirror.com/@remix-run/router@1.12.0
+      react: registry.npmmirror.com/react@18.2.0
+    dev: false
 
   registry.npmmirror.com/react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==, tarball: https://registry.npmmirror.com/react/-/react-18.2.0.tgz}

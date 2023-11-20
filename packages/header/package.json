@@ -18,5 +18,8 @@
   },
   "scripts": {
     "test": "node ./__tests__/header.test.js"
+  },
+  "dependencies": {
+    "react-router": "^6.19.0"
   }
 }
