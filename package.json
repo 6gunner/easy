@@ -1,0 +1,22 @@
+{
+  "name": "lerna-learn",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=10",
+    "pnpm": ">=3"
+  },
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lerna": "^7.4.2"
+  },
+  "dependencies": {
+    "header": "^0.1.1",
+    "react": "^18.2.0"
+  }
+}
