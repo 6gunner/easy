@@ -1,0 +1,17 @@
+// eslint-disable-file
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es6",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "declaration": true,
+    "baseUrl": ".", // 告诉ts，从根目录解析模块
+    "allowSyntheticDefaultImports": true //允许按esmodule模式导入commonjs的模块
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/__test__", "dist"]
+}

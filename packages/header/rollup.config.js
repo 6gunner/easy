@@ -11,5 +11,5 @@ export default {
     },
   ],
   plugins: [typescript()],
-  external: ["react"],
+  external: ["react"], // 作为外部依赖
 };
