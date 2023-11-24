@@ -1,22 +1,8 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 
-// 定义http请求类型
-export type Method = "get" | "delete" | "head" | "options" | "post" | "put" | "patch";
-
-// 定义一个type方法，可以获取对象的key类型
-export type IndexedType<T> = {
-  [key: string]: T
-}
-
-// 请求
-export type BaseRawReq = IndexedType<unknown>;
-export type BaseReq = IndexedType<unknown>;
-// 响应
-export type BaseRawRes = IndexedType<unknown>;
-export type BaseRes = IndexedType<unknown>;
+import type { Method, EasyRequestType, EasyResponse, EasyResponseError } from './types';
 
 export type Option = {
-  method: Method;
   timeout?: number;
   debounce?: {
     wait: number;
@@ -27,9 +13,9 @@ export type Option = {
 
 
 // 核心方法，
-export const useApi = (url: string, option: Option) => {
-  const [data, setData] = useState<Response>();
-  const [error, setError] = useState(null);
+export const useRequest = (request: EasyRequestType, option: Option) => {
+  const [data, setData] = useState<EasyResponse>();
+  const [error, setError] = useState<EasyResponseError>();
   const [isLoading, setIsLoading] = useState(true);
   // 用来取消请求
   const abortRef = useRef<AbortController | null>(null);
@@ -82,29 +68,20 @@ export const useApi = (url: string, option: Option) => {
 
   const _request = useCallback(
     async () => {
-      cancel();
-      const controller = new AbortController();
-      const signal = controller.signal;
-      abortRef.current = controller;
-
-      fetch(url, {
-        ...option,
-        method: option.method || "get",
-        signal
-      }).then(res => res.json())
-        .then(data => {
-          setData(data);
-          setIsLoading(false)
-        }).catch((e) => {
-          throw e;
-        })
-    },
-    [url, option],
-  )
+      setIsLoading(true);
+      try {
+        const response: EasyResponse = await request();
+        setData(response);
+      } catch (err: any) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    }, []);
 
   useEffect(() => {
     _request();
-  }, [_request])
+  }, [_request]);
 
   return {
     data,

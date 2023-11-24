@@ -1,11 +1,13 @@
-import type { AxiosRequestConfig } from 'axios';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import * as qs from 'querystring';
-
+import Cookies from '../cookie';
 import { camelCaseToLine } from '../helper';
-// store对象从app里拿
-// import { routerRedux } from 'dva/router';
+
+// ts
+import type { AxiosRequestConfig } from 'axios';
+import type { EasyRequestHeaders, EasyResponse, EasyRequestType } from './types'
+
+
 
 /**
  * 一、功能：
@@ -23,22 +25,18 @@ axios.defaults.baseURL = '';
 axios.defaults.withCredentials = true;
 
 /**
- * 全部都正常返回
+ * 传url，返回一个Promise
  * @param url
  * @param options
  * @returns  {code, msg, data}
  */
-export default function request(
+export function makeRequest(
   url: string,
   options: AxiosRequestConfig,
-): Promise<any> {
-  let auToken = Cookies.get('auth-token');
-  let tag = Cookies.get('tag');
-  if (!auToken) {
-    auToken = Cookies.get('auth-token');
-    tag = Cookies.get('tag');
-  }
-  const headers: any = {
+): EasyRequestType {
+  const auToken = Cookies.read('auth-token');
+  const tag = Cookies.read('tag');
+  const headers: EasyRequestHeaders = {
     'auth-token': auToken || '',
     'org-tag': tag,
   };
@@ -71,41 +69,38 @@ export default function request(
   if (config.method === 'get' || config.method === 'GET') {
     config.params = params;
   }
-  return axios(url, config)
-    .then((response) => {
-      return Promise.resolve(response.data);
-    })
-    .catch((error: any) => {
-      console.error(error, 'error');
-      if (!error.response) {
+  return () => {
+    return axios(url, config)
+      .then((response) => {
+        return Promise.resolve(response.data);
+      })
+      .catch((error: any) => {
+        // 捕获异常
+        console.error(error, 'error');
+        if (!error.response) {
+          return Promise.reject({
+            code: -1,
+            msg: 'unknow error',
+          });
+        }
+        const status = error.response.status;
+        const data = error.response.data;
+        if (!data) {
+          return Promise.reject({
+            code: 1,
+            msg: 'unknow error',
+          });
+        }
+        if (status === 403) {
+          return Promise.reject({
+            code: 403,
+            msg: '包含非法内容，请求被拒绝',
+          });
+        }
         return Promise.reject({
-          code: 1000,
-          msg: 'unknow error',
+          code: data.code || status,
+          msg: data.msg,
         });
-      }
-      const status = error.response.status;
-      const data = error.response.data;
-      if (!data) {
-        return Promise.reject({
-          code: 1000,
-          msg: 'unknow error',
-        });
-      }
-      if (data.code === 30000) {
-        window.sessionStorage.removeItem('userInfo');
-        Cookies.remove('au_token');
-        // dispatch(routerRedux.push('/user/login'));
-        return Promise.reject(data);
-      }
-      if (status === 403) {
-        return Promise.reject({
-          code: 403,
-          msg: '包含非法内容，请求被拒绝',
-        });
-      }
-      return Promise.reject({
-        code: data.code || status,
-        msg: data.msg,
       });
-    });
+  }
 }

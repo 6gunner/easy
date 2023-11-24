@@ -1,72 +1,104 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, '__esModule', { value: true });
 
-var react = require("react");
+var tslib = require('tslib');
+var react = require('react');
+var axios = require('axios');
+var qs = require('querystring');
 
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-
-function __awaiter(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P
-      ? value
-      : new P(function (resolve) {
-          resolve(value);
+function _interopNamespace(e) {
+    if (e && e.__esModule) return e;
+    var n = Object.create(null);
+    if (e) {
+        Object.keys(e).forEach(function (k) {
+            if (k !== 'default') {
+                var d = Object.getOwnPropertyDescriptor(e, k);
+                Object.defineProperty(n, k, d.get ? d : {
+                    enumerable: true,
+                    get: function () { return e[k]; }
+                });
+            }
         });
-  }
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
     }
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function step(result) {
-      result.done
-        ? resolve(result.value)
-        : adopt(result.value).then(fulfilled, rejected);
-    }
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
+    n["default"] = e;
+    return Object.freeze(n);
+}
+
+var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
+var qs__namespace = /*#__PURE__*/_interopNamespace(qs);
+
+function lineToCamelCase(targetString) {
+  return targetString.replace(/_(\w)/g, function (match, letter) {
+    // a_s  aS
+    // c_f   cF
+    return letter.toUpperCase();
+  });
+}
+/**
+ * @function unescapeHTML 还原html脚本 < > & " '
+ * @param a - 字符串
+ */
+function unescapeHTML(a) {
+  a = '' + a;
+  return a.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&apos;/g, "'");
+}
+/**
+ * 驼峰转下划线
+ * @param str
+ * @returns {*}
+ */
+function camelCaseToLine(targetString) {
+  return targetString.replace(/([A-Z])/g, function (match) {
+    return '_' + match.toLowerCase();
   });
 }
 
-typeof SuppressedError === "function"
-  ? SuppressedError
-  : function (error, suppressed, message) {
-      var e = new Error(message);
-      return (
-        (e.name = "SuppressedError"),
-        (e.error = error),
-        (e.suppressed = suppressed),
-        e
-      );
-    };
+/*
+ * Cookie
+ */
+function read(name) {
+  const value = document.cookie.match("(?:^|;)\\s*" + name + "=([^;]*)");
+  return value ? decodeURIComponent(value[1]) : null;
+}
+function write(name, value, options) {
+  let str = name + "=" + encodeURIComponent(value);
+  if (options === null || options === void 0 ? void 0 : options.domain) {
+    str += "; domain=" + options.domain;
+  }
+  if (options === null || options === void 0 ? void 0 : options.path) {
+    str += "; path=" + (options.path || "/");
+  }
+  if (options === null || options === void 0 ? void 0 : options.expires) {
+    let expiresDate;
+    // 如果是number
+    if (typeof options.expires === 'number') {
+      expiresDate = new Date(Date.now() + options.expires * 864e5);
+    } else {
+      expiresDate = options.expires;
+      str += "; expires=" + expiresDate.toUTCString();
+    }
+  }
+  document.cookie = str;
+  return;
+}
+function del(name, options) {
+  write(name, '', Object.assign({}, options, {
+    expires: -1
+  }));
+}
+var Cookies = {
+  read,
+  write,
+  del
+};
 
 // 核心方法，
-const useApi = (url, option) => {
+const useRequest = (request, option) => {
   const [data, setData] = react.useState();
-  const [error, setError] = react.useState(null);
+  const [error, setError] = react.useState();
   const [isLoading, setIsLoading] = react.useState(true);
   // 用来取消请求
   const abortRef = react.useRef(null);
@@ -113,31 +145,17 @@ const useApi = (url, option) => {
   //   },
   //   [url, option],
   // )
-  const _request = react.useCallback(
-    () =>
-      __awaiter(void 0, void 0, void 0, function* () {
-        cancel();
-        const controller = new AbortController();
-        const signal = controller.signal;
-        abortRef.current = controller;
-        fetch(
-          url,
-          Object.assign(Object.assign({}, option), {
-            method: option.method || "get",
-            signal,
-          })
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            setData(data);
-            setIsLoading(false);
-          })
-          .catch((e) => {
-            throw e;
-          });
-      }),
-    [url, option]
-  );
+  const _request = react.useCallback(() => tslib.__awaiter(void 0, void 0, void 0, function* () {
+    setIsLoading(true);
+    try {
+      const response = yield request();
+      setData(response);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }), []);
   react.useEffect(() => {
     _request();
   }, [_request]);
@@ -145,8 +163,99 @@ const useApi = (url, option) => {
     data,
     error,
     isLoading,
-    cancel,
+    cancel
   };
 };
 
-exports.useApi = useApi;
+/**
+ * 一、功能：
+ * 1. 统一拦截http错误请求码；
+ * 2. 统一拦截业务错误代码；
+ * 3. 统一设置请求前缀
+ *
+ * 二、引包：
+ * |-- axios：http 请求工具库
+ * |-- store：使用 dispatch 对象，用于触发路由跳转
+ */
+axios__default["default"].defaults.timeout = 5000;
+axios__default["default"].defaults.baseURL = '';
+axios__default["default"].defaults.withCredentials = true;
+/**
+ * 传url，返回一个Promise
+ * @param url
+ * @param options
+ * @returns  {code, msg, data}
+ */
+function makeRequest(url, options) {
+  const auToken = Cookies.read('auth-token');
+  const tag = Cookies.read('tag');
+  const headers = {
+    'auth-token': auToken || '',
+    'org-tag': tag
+  };
+  headers['X-Requested-With'] = 'XMLHttpRequest';
+  headers['Content-Type'] = 'application/x-www-form-urlencoded';
+  headers['Accept-Language'] = window.localStorage.lang || 'zh-cn';
+  if (options === null || options === void 0 ? void 0 : options.headers) {
+    for (const key in options.headers) {
+      if ({}.hasOwnProperty.call(options.headers, key)) {
+        headers[key] = options.headers[key];
+      }
+    }
+  }
+  const params = {};
+  if (options.data) {
+    for (const key in options.data) {
+      if (Object.prototype.hasOwnProperty.call(options.data, key)) {
+        //加上if判断去掉原型链上的
+        params[camelCaseToLine(key)] = options.data[key];
+      }
+    }
+  }
+  const config = {
+    method: options.method || 'get',
+    data: qs__namespace.stringify(params),
+    headers
+  };
+  if (config.method === 'get' || config.method === 'GET') {
+    config.params = params;
+  }
+  return () => {
+    return axios__default["default"](url, config).then(response => {
+      return Promise.resolve(response.data);
+    }).catch(error => {
+      // 捕获异常
+      console.error(error, 'error');
+      if (!error.response) {
+        return Promise.reject({
+          code: -1,
+          msg: 'unknow error'
+        });
+      }
+      const status = error.response.status;
+      const data = error.response.data;
+      if (!data) {
+        return Promise.reject({
+          code: 1,
+          msg: 'unknow error'
+        });
+      }
+      if (status === 403) {
+        return Promise.reject({
+          code: 403,
+          msg: '包含非法内容，请求被拒绝'
+        });
+      }
+      return Promise.reject({
+        code: data.code || status,
+        msg: data.msg
+      });
+    });
+  };
+}
+
+exports.camelCaseToLine = camelCaseToLine;
+exports.lineToCamelCase = lineToCamelCase;
+exports.makeRequest = makeRequest;
+exports.unescapeHTML = unescapeHTML;
+exports.useRequest = useRequest;

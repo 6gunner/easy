@@ -17,7 +17,7 @@
     "header": "workspace:*",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "utils": "workspace:*"
+    "@easy/utils": "workspace:*"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.5.1",
