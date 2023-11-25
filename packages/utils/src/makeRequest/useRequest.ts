@@ -1,32 +1,25 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
-import type { Method, EasyRequestType, EasyResponse, EasyResponseError } from './types';
+import type { EasyRequestService, EasyResponse, EasyResponseError, EasyRequestFetchState, EasyRequestServiceOption } from './types';
 
-export type Option = {
-  timeout?: number;
-  debounce?: {
-    wait: number;
-    leading: boolean;
-    trailing: boolean
-  }
-}
+
 
 
 // 核心方法，
-export const useRequest = (request: EasyRequestType, option: Option) => {
-  const [data, setData] = useState<EasyResponse>();
+export function useRequest<T>(request: EasyRequestService<T>, option: EasyRequestServiceOption<T>): EasyRequestFetchState<T> {
+  const [data, setData] = useState<T>();
   const [error, setError] = useState<EasyResponseError>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   // 用来取消请求
-  const abortRef = useRef<AbortController | null>(null);
+  // const abortRef = useRef<AbortController | null>(null);
 
-  const cancel = () => {
-    console.log("我被执行了...")
-    if (abortRef.current) {
-      abortRef.current.abort();
-      abortRef.current = null;
-    }
-  }
+  // const cancel = () => {
+  //   console.log("我被执行了...")
+  //   if (abortRef.current) {
+  //     abortRef.current.abort();
+  //     abortRef.current = null;
+  //   }
+  // }
 
   // const _request = useCallback(
   //   async () => {
@@ -69,25 +62,40 @@ export const useRequest = (request: EasyRequestType, option: Option) => {
   const _request = useCallback(
     async () => {
       setIsLoading(true);
-      try {
-        const response: EasyResponse = await request();
-        setData(response);
-      } catch (err: any) {
+
+      Promise.race([
+        new Promise<EasyResponse>((_, reject) => {
+          setTimeout(
+            () => reject({ code: 500, msg: `请求超时` }),
+            option?.timeout || 1000);
+        }),
+        request()
+      ]).then((response) => {
+        if (response.status == 200) {
+          option.onSuccess && option.onSuccess(response.data);
+          setData(response.data);
+        } else {
+          return Promise.reject({
+            code: response.status,
+            msg: ""
+          });
+        }
+      }).catch((err: EasyResponseError) => {
+        option.onError && option.onError(err);
         setError(err);
-      } finally {
+      }).finally(() => {
         setIsLoading(false);
-      }
+      })
     }, []);
 
   useEffect(() => {
     _request();
-  }, [_request]);
+  }, []);
 
   return {
     data,
     error,
-    isLoading,
-    cancel
+    loading: isLoading,
   }
 
 }

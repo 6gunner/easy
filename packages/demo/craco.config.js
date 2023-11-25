@@ -5,4 +5,7 @@ module.exports = {
   devServer: whenDev(() => ({
     proxy,
   })),
+  eslint: {
+    mode: "file",
+  },
 };

@@ -1,15 +1,2 @@
-import type { EasyRequestType, EasyResponse, EasyResponseError } from './types';
-export type Option = {
-    timeout?: number;
-    debounce?: {
-        wait: number;
-        leading: boolean;
-        trailing: boolean;
-    };
-};
-export declare const useRequest: (request: EasyRequestType, option: Option) => {
-    data: EasyResponse<any> | undefined;
-    error: EasyResponseError | undefined;
-    isLoading: boolean;
-    cancel: () => void;
-};
+import type { EasyRequestService, EasyRequestFetchState, EasyRequestServiceOption } from './types';
+export declare function useRequest<T>(request: EasyRequestService<T>, option: EasyRequestServiceOption<T>): EasyRequestFetchState<T>;

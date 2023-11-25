@@ -96,19 +96,19 @@ var Cookies = {
 };
 
 // 核心方法，
-const useRequest = (request, option) => {
+function useRequest(request, option) {
   const [data, setData] = react.useState();
   const [error, setError] = react.useState();
   const [isLoading, setIsLoading] = react.useState(true);
   // 用来取消请求
-  const abortRef = react.useRef(null);
-  const cancel = () => {
-    console.log("我被执行了...");
-    if (abortRef.current) {
-      abortRef.current.abort();
-      abortRef.current = null;
-    }
-  };
+  // const abortRef = useRef<AbortController | null>(null);
+  // const cancel = () => {
+  //   console.log("我被执行了...")
+  //   if (abortRef.current) {
+  //     abortRef.current.abort();
+  //     abortRef.current = null;
+  //   }
+  // }
   // const _request = useCallback(
   //   async () => {
   //     cancel();
@@ -145,27 +145,39 @@ const useRequest = (request, option) => {
   //   },
   //   [url, option],
   // )
-  const _request = react.useCallback(() => tslib.__awaiter(void 0, void 0, void 0, function* () {
+  const _request = react.useCallback(() => tslib.__awaiter(this, void 0, void 0, function* () {
     setIsLoading(true);
-    try {
-      const response = yield request();
-      setData(response);
-    } catch (err) {
+    Promise.race([new Promise((_, reject) => {
+      setTimeout(() => reject({
+        code: 500,
+        msg: `请求超时`
+      }), (option === null || option === void 0 ? void 0 : option.timeout) || 1000);
+    }), request()]).then(response => {
+      if (response.status == 200) {
+        option.onSuccess && option.onSuccess(response.data);
+        setData(response.data);
+      } else {
+        return Promise.reject({
+          code: response.status,
+          msg: ""
+        });
+      }
+    }).catch(err => {
+      option.onError && option.onError(err);
       setError(err);
-    } finally {
+    }).finally(() => {
       setIsLoading(false);
-    }
+    });
   }), []);
   react.useEffect(() => {
     _request();
-  }, [_request]);
+  }, []);
   return {
     data,
     error,
-    isLoading,
-    cancel
+    loading: isLoading
   };
-};
+}
 
 /**
  * 一、功能：
@@ -187,6 +199,7 @@ axios__default["default"].defaults.withCredentials = true;
  * @returns  {code, msg, data}
  */
 function makeRequest(url, options) {
+  // 1. 处理request的headers和data参数
   const auToken = Cookies.read('auth-token');
   const tag = Cookies.read('tag');
   const headers = {
@@ -217,15 +230,22 @@ function makeRequest(url, options) {
     data: qs__namespace.stringify(params),
     headers
   };
+  // 如果是get请求，用params来传参
   if (config.method === 'get' || config.method === 'GET') {
+    delete config.data;
     config.params = params;
   }
+  // 返回一个函数，内部是一个axios的请求
   return () => {
     return axios__default["default"](url, config).then(response => {
-      return Promise.resolve(response.data);
+      const ret = {
+        data: response.data,
+        status: response.status
+      };
+      return Promise.resolve(ret);
     }).catch(error => {
-      // 捕获异常
-      console.error(error, 'error');
+      debugger;
+      // 统一处理异常
       if (!error.response) {
         return Promise.reject({
           code: -1,
@@ -233,17 +253,17 @@ function makeRequest(url, options) {
         });
       }
       const status = error.response.status;
-      const data = error.response.data;
-      if (!data) {
-        return Promise.reject({
-          code: 1,
-          msg: 'unknow error'
-        });
-      }
       if (status === 403) {
         return Promise.reject({
           code: 403,
           msg: '包含非法内容，请求被拒绝'
+        });
+      }
+      const data = error.response.data;
+      if (!data) {
+        return Promise.reject({
+          code: -1,
+          msg: 'unknow error'
         });
       }
       return Promise.reject({

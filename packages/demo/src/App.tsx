@@ -1,29 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { lineToCamelCase, makeRequest, useRequest } from "utils";
+import { lineToCamelCase, makeRequest, useRequest } from "@easy/utils";
 import urls from "./urls";
 import logo from "./logo.svg";
 import "./App.css";
 
+import type { EasyResponse } from "@easy/utils/dist/makeRequest/types";
+
+type AppData = {
+  body: string;
+  id: number;
+  title: string;
+  userId: number;
+};
+
+type ArrayedAppData = Array<AppData>;
+
+const request = makeRequest<ArrayedAppData, any>(urls.getPost, {
+  method: "get",
+});
+
 function App() {
-  const request = makeRequest(urls.getPost, {
-    method: "get",
-  });
-  useRequest(request, {
-    timeout: 5000,
+  const [list, setList] = useState<AppData[]>();
+
+  const { data, error, loading } = useRequest(request, {
+    timeout: 50,
     debounce: {
       wait: 1000,
       leading: true,
       trailing: false,
     },
+    // onSuccess: (data: AppData[]) => {
+    //   setList(data);
+    // },
   });
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {error ? error.msg : data?.map((item) => <div>{item.body}</div>)}
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
-          {lineToCamelCase("App")}
+          {lineToCamelCase("app_link")}
         </p>
         <a
           className="App-link"

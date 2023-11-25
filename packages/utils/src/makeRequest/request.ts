@@ -4,8 +4,8 @@ import Cookies from '../cookie';
 import { camelCaseToLine } from '../helper';
 
 // ts
-import type { AxiosRequestConfig } from 'axios';
-import type { EasyRequestHeaders, EasyResponse, EasyRequestType } from './types'
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { EasyRequestOption, EasyRequestHeaders, EasyResponse, EasyRequestService } from './types'
 
 
 
@@ -30,10 +30,11 @@ axios.defaults.withCredentials = true;
  * @param options
  * @returns  {code, msg, data}
  */
-export function makeRequest(
+export function makeRequest<TData, TParams>(
   url: string,
-  options: AxiosRequestConfig,
-): EasyRequestType {
+  options: EasyRequestOption<TParams>,
+): EasyRequestService<TData> {
+  // 1. 处理request的headers和data参数
   const auToken = Cookies.read('auth-token');
   const tag = Cookies.read('tag');
   const headers: EasyRequestHeaders = {
@@ -66,17 +67,24 @@ export function makeRequest(
     headers,
   };
 
+  // 如果是get请求，用params来传参
   if (config.method === 'get' || config.method === 'GET') {
+    delete config.data;
     config.params = params;
   }
+  // 返回一个函数，内部是一个axios的请求
   return () => {
-    return axios(url, config)
+    return axios<TData, AxiosResponse<TData, TParams>, TParams>(url, config)
       .then((response) => {
-        return Promise.resolve(response.data);
+        const ret: EasyResponse<TData> = {
+          data: response.data,
+          status: response.status
+        }
+        return Promise.resolve(ret);
       })
       .catch((error: any) => {
-        // 捕获异常
-        console.error(error, 'error');
+        debugger
+        // 统一处理异常
         if (!error.response) {
           return Promise.reject({
             code: -1,
@@ -84,17 +92,17 @@ export function makeRequest(
           });
         }
         const status = error.response.status;
-        const data = error.response.data;
-        if (!data) {
-          return Promise.reject({
-            code: 1,
-            msg: 'unknow error',
-          });
-        }
         if (status === 403) {
           return Promise.reject({
             code: 403,
             msg: '包含非法内容，请求被拒绝',
+          });
+        }
+        const data = error.response.data;
+        if (!data) {
+          return Promise.reject({
+            code: -1,
+            msg: 'unknow error',
           });
         }
         return Promise.reject({

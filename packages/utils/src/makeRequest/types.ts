@@ -10,6 +10,12 @@ type CommonRequestHeadersList = 'Accept' | 'Content-Length' | 'User-Agent' | 'Co
 
 export type Method = "get" | "delete" | "head" | "options" | "post" | "put" | "patch";
 
+// 框架里用到的请求体
+export interface EasyRequestOption<D> {
+  method?: Method | string;
+  headers?: RawRequestHeaders;
+  data?: D;
+}
 // 框架里用到的响应体结构
 export interface EasyResponse<T = any> {
   data: T;
@@ -28,29 +34,38 @@ export type EasyResponseError = {
   msg: string
 }
 
-export type EasyRequestType<T = any> = () => Promise<EasyResponse<T>>
+
+// 这个是makeRequest返回的核心service，发起实际请求的
+export type EasyRequestService<TData = any> = () => Promise<EasyResponse<TData>>;
 
 
+type OnSuccessCallback<T> = (data: T) => void;
+type onErrorCallback = (err: EasyResponseError) => void;
 
-export type Service<TData, TParams extends any[]> = (...args: TParams) => Promise<TData>;
-
-
-export interface FetchState<TData, TParams extends any[]> {
-  loading: boolean;
-  params?: TParams
-  data?: TData
-  error?: Error
+export type EasyRequestServiceOption<T> = {
+  timeout?: number;
+  debounce?: {
+    wait: number;
+    leading: boolean;
+    trailing: boolean
+  },
+  onSuccess?: OnSuccessCallback<T>,
+  onError?: onErrorCallback,
 }
 
-
+export interface EasyRequestFetchState<TData> {
+  loading: boolean;
+  data?: TData
+  error?: EasyResponseError
+}
 
 // 定义一个type方法，可以获取对象的key类型
-export type IndexedType<T> = {
-  [key: string]: T
-}
-// 请求
-export type BaseRawReq = IndexedType<unknown>;
-export type BaseReq = IndexedType<unknown>;
-// 响应
-export type BaseRawRes = IndexedType<unknown>;
-export type BaseRes = IndexedType<unknown>;
+// export type IndexedType<T> = {
+//   [key: string]: T
+// }
+// // 请求
+// export type BaseRawReq = IndexedType<unknown>;
+// export type BaseReq = IndexedType<unknown>;
+// // 响应
+// export type BaseRawRes = IndexedType<unknown>;
+// export type BaseRes = IndexedType<unknown>;
