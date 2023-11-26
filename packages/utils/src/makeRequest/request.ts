@@ -83,7 +83,6 @@ export function makeRequest<TData, TParams>(
         return Promise.resolve(ret);
       })
       .catch((error: any) => {
-        debugger
         // 统一处理异常
         if (!error.response) {
           return Promise.reject({

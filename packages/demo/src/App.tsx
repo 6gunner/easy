@@ -2,10 +2,8 @@ import React, { useState } from "react";
 
 import { lineToCamelCase, makeRequest, useRequest } from "@easy/utils";
 import urls from "./urls";
-import logo from "./logo.svg";
-import "./App.css";
 
-import type { EasyResponse } from "@easy/utils/dist/makeRequest/types";
+import "./App.css";
 
 type AppData = {
   body: string;
