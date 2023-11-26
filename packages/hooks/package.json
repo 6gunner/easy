@@ -1,11 +1,14 @@
 {
-  "name": "@gunner6/hooks",
+  "name": "@dev-easy/hooks",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6gunner/easy.git"
   },
   "scripts": {
     "build": "rollup -c && pnpm type",
@@ -35,5 +38,5 @@
       "require": "./dist/index.cjs"
     }
   },
-  "gitHead": "42acdd3029c828fc51a08229c598ef5a8aa4c225"
+  "gitHead": "26bbbe3dc88ea1f7bfef12b5b1576b42035a5f8d"
 }
