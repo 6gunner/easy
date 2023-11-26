@@ -1,8 +1,12 @@
 {
-  "name": "@easy/hooks",
-  "version": "1.0.0",
+  "name": "@gunner6/hooks",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "scripts": {
     "build": "rollup -c && pnpm type",
     "type": "tsc --project . --paths null --emitDeclarationOnly --declaration"
@@ -21,14 +25,15 @@
     "@rollup/plugin-typescript": "^8.5.0",
     "@types/node": "^16.18.64",
     "@types/react": "^18.0.0",
+    "rollup": "^2.60.2",
     "tslib": "^2.4.0",
-    "typescript": "^4.8.4",
-    "rollup": "^2.60.2"
+    "typescript": "^4.8.4"
   },
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     }
-  }
+  },
+  "gitHead": "42acdd3029c828fc51a08229c598ef5a8aa4c225"
 }

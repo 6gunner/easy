@@ -1,6 +1,6 @@
 {
-  "name": "@easy/utils",
-  "version": "0.0.0",
+  "name": "@gunner6/utils",
+  "version": "0.0.1",
   "description": "> TODO: description",
   "author": "gunner6 <gunner6@163.com>",
   "homepage": "",
@@ -9,7 +9,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "publishConfig": {
-    "registry": "https://registry.npm.taobao.org/"
+    "access": "public"
   },
   "scripts": {
     "build": "rollup -c && pnpm type",
@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.22.4",
-    "@easy/hooks": "workspace:^",
+    "@easy/hooks": "^0.0.1",
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
@@ -44,5 +44,6 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     }
-  }
+  },
+  "gitHead": "42acdd3029c828fc51a08229c598ef5a8aa4c225"
 }

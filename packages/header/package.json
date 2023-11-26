@@ -1,6 +1,7 @@
 {
   "name": "header",
   "version": "0.0.0",
+  "private": true,
   "description": "> TODO: description",
   "author": "gunner6 <gunner6@163.com>",
   "homepage": "",

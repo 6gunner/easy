@@ -1,5 +1,6 @@
 {
   "name": "footer",
+  "private": "true",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "gunner6 <gunner6@163.com>",
