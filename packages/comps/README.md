@@ -9,3 +9,9 @@ const header = require('header');
 
 // TODO: DEMONSTRATE API
 ```
+
+## dependencies
+
+```
+https://stitches.dev/
+```

@@ -5,9 +5,13 @@ export default {
   output: [
     {
       dir: "dist",
-      entryFileName: "[name].js",
+      entryFileName: "[name].cjs",
       format: "cjs",
-      exports: "named", // ?
+    },
+    {
+      dir: "dist",
+      entryFileName: "[name].mjs",
+      format: "es",
     },
   ],
   plugins: [typescript()],

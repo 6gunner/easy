@@ -2,7 +2,9 @@
   "name": "demo",
   "version": "0.0.1",
   "private": true,
+  "module": "true",
   "dependencies": {
+    "@dev-easy/comps": "workspace:*",
     "@dev-easy/hooks": "workspace:*",
     "@dev-easy/utils": "workspace:*",
     "@testing-library/jest-dom": "^5.17.0",

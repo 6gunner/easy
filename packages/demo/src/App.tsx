@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { lineToCamelCase, makeRequest, useRequest } from "@easy/utils";
+import { lineToCamelCase, makeRequest, useRequest } from "@dev-easy/utils";
+import { useModal } from "@dev-easy/comps";
 import urls from "./urls";
 
 import "./App.css";
@@ -32,6 +33,11 @@ function App() {
     //   setList(data);
     // },
   });
+
+  const [TestModal, show, hide] = useModal({
+    body: <div>Modal Content</div>,
+  });
+
   return (
     <div className="App">
       <header className="App-header">
@@ -49,6 +55,8 @@ function App() {
           Learn React
         </a>
       </header>
+      <button onClick={() => show()}>展示button</button>
+      {TestModal}
     </div>
   );
 }

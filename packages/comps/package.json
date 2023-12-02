@@ -1,0 +1,45 @@
+{
+  "name": "@dev-easy/comps",
+  "version": "0.0.1",
+  "private": true,
+  "description": "> TODO: description",
+  "author": "gunner6 <gunner6@163.com>",
+  "homepage": "",
+  "license": "ISC",
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.cjs.js",
+    "module": "dist/index.es.js",
+    "types": "dist/index.d.ts"
+  },
+  "scripts": {
+    "build": "rimraf dist && rollup --config",
+    "watch": "tsc --project . --watch"
+  },
+  "dependencies": {
+    "@types/animejs": "^3.1.12",
+    "animejs": "^3.2.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router": "^6.19.0",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "rollup": "^2.60.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tslib": "2.3.1"
+  },
+  "type": "module",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  }
+}
