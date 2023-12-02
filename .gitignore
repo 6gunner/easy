@@ -1,2 +1,5 @@
 node_modules/
 /.env
+/packages/comps/.DS_Store
+/packages/comps/dist
+/.DS_Store

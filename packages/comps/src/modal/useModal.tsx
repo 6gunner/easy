@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
 import utils from "./utils";
 
@@ -18,14 +18,14 @@ function useModal(
 
   const [visible, setVisible] = useState(false);
 
-  const ref = React.useRef<HTMLDivElement>();
+  const ref = React.useRef<HTMLDivElement>(null);
 
   const hideModal = () => {
     if (!visible) {
       return;
     }
     // 设置modal隐藏
-    ref.current && utils.animate(false, ref.current);
+    ref.current && utils.animateToggle(false, ref.current);
     setVisible(false);
     afterModal?.();
     // 重置这个值;
@@ -43,6 +43,13 @@ function useModal(
     // FIXME: modal消失，要重置这个值;
     document.body.style.overflow = "hidden";
   };
+
+  useEffect(() => {
+    return () => {
+      console.log("unmount...");
+      hideModal();
+    };
+  });
 
   const modal = <Modal ref={ref} visible={visible} body={props.body}></Modal>;
 

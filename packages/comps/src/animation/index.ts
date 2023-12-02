@@ -1,2 +1,2 @@
-export * as fade from './fade';
-export * as zoom from './zoom';
+export { default as fade } from './fade';
+export { default as zoom } from './zoom';

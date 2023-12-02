@@ -20,43 +20,15 @@ const request = makeRequest<ArrayedAppData, any>(urls.getPost, {
 });
 
 function App() {
-  const [list, setList] = useState<AppData[]>();
-
-  const { data, error, loading } = useRequest(request, {
-    timeout: 50,
-    debounce: {
-      wait: 1000,
-      leading: true,
-      trailing: false,
-    },
-    // onSuccess: (data: AppData[]) => {
-    //   setList(data);
-    // },
-  });
-
+  const [visible, setVisible] = useState(false);
   const [TestModal, show, hide] = useModal({
     body: <div>Modal Content</div>,
   });
 
   return (
     <div className="App">
-      <header className="App-header">
-        {error ? error.msg : data?.map((item) => <div>{item.body}</div>)}
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-          {lineToCamelCase("app_link")}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <button onClick={() => show()}>展示button</button>
-      {TestModal}
+      <button onClick={() => setVisible(!visible)}>show modal</button>
+      <div>{visible ? "true" : "false"}</div>
     </div>
   );
 }
