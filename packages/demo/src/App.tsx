@@ -25,10 +25,21 @@ function App() {
     body: <div>Modal Content</div>,
   });
 
+  const handleClick = () => {
+    if (visible) {
+      hide();
+      setVisible(false);
+    } else {
+      show();
+      setVisible(true);
+    }
+  };
+
   return (
     <div className="App">
-      <button onClick={() => setVisible(!visible)}>show modal</button>
+      <button onClick={handleClick}>show modal</button>
       <div>{visible ? "true" : "false"}</div>
+      {TestModal}
     </div>
   );
 }
