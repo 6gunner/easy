@@ -7,26 +7,26 @@ import { zoom, fade } from '../animation';
  */
 const animateToggle = (visible: boolean, dom: HTMLElement) => {
   // FIXME: 用自定义的className
-  const modal = dom.querySelector('.modal') as HTMLElement;
+  const modal = dom.querySelector('[role="modal"]') as HTMLElement;
   const key = visible ? 'in' : 'out';
-
   // 调用zoom动画
-  zoom[`center-${key}`]({ targets: modal });
+  // zoom[`center-${key}`]({ targets: modal });
   // 调用fade动画
   fade[key]({
-    target: dom,
+    targets: dom,
+    scale: key === 'in' ? [0, 1] : [1, 0],
     easing: 'linear',
     duration: 100,
-    begin: instance => {
-      // 开始动画的回调
-      console.log(instance);
-    },
-    complete: instance => {
-      // 结束动画的回调
-      console.log(instance);
-      instance.animatables;
-    }
+    // 结束动画的回调
+    // complete: instance => {
+    //   debugger
+    //   再处理一次dom元素，防止出现问题；
+    //   instance.animatables.forEach(e => {
+    //     e.target.style.transform = key === 'in' ? 'scale(1)' : 'scale(0)';
+    //   });
+    // }
   })
+  dom.style.pointerEvents = visible ? 'auto' : 'none';
 }
 
 export default {

@@ -38,7 +38,7 @@ function useModal(
     }
     beforeModal?.();
     setVisible(true);
-
+    ref.current && utils.animateToggle(true, ref.current);
     // 为了防止modal出现时，依然可以滚动body
     // FIXME: modal消失，要重置这个值;
     document.body.style.overflow = "hidden";
