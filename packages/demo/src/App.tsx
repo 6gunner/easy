@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 import { lineToCamelCase, makeRequest, useRequest } from "@dev-easy/utils";
 import { useModal } from "@dev-easy/comps";
@@ -19,27 +20,38 @@ const request = makeRequest<ArrayedAppData, any>(urls.getPost, {
   method: "get",
 });
 
+const ModalPage = React.lazy(() => import("./pages/ModalPage"));
+
+export type CloseBtnProps = {
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+};
+const CloseBtn: React.FC<CloseBtnProps> = (props) => {
+  return (
+    <div
+      style={{
+        width: 28,
+        height: 28,
+        position: "absolute",
+        right: -10,
+        top: -10,
+        zIndex: 101,
+      }}
+      {...props}
+    >
+      <img src={require("./assets/close-btn-white.svg").default}></img>
+    </div>
+  );
+};
+
 function App() {
-  const [visible, setVisible] = useState(false);
-  const [TestModal, show, hide] = useModal({
-    body: <div>Modal Content</div>,
-  });
-
-  const handleClick = () => {
-    if (visible) {
-      hide();
-      setVisible(false);
-    } else {
-      show();
-      setVisible(true);
-    }
-  };
-
   return (
     <div className="App">
-      <button onClick={handleClick}>show modal</button>
-      <div>{visible ? "true" : "false"}</div>
-      {TestModal}
+      <Router>
+        {/* switch换成了routes */}
+        <Routes>
+          <Route path="/modal" element={<ModalPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

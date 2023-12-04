@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Modal from "./Modal";
 import utils from "./utils";
 
@@ -6,13 +6,13 @@ import type { ModalProps } from "./Modal";
 import type { Fn } from "../types";
 
 function useModal(
-  props: Omit<ModalProps, "visible">,
+  props: Omit<ModalProps, "visible" | "onClose" | "onCancel" | "onOK">,
   options: {
     beforeModal?: Fn;
     afterModal?: Fn;
   } = {}
 ) {
-  const { okBtn, cancelBtn, closeBtn, ...resetProps } = props;
+  const { okBtn, cancelBtn, closeBtn, ...restProps } = props;
 
   const { beforeModal, afterModal } = options;
 
@@ -20,7 +20,7 @@ function useModal(
 
   const ref = React.useRef<HTMLDivElement>(null);
 
-  const hideModal = () => {
+  const hideModal = useCallback(() => {
     if (!visible) {
       return;
     }
@@ -30,7 +30,7 @@ function useModal(
     afterModal?.();
     // 重置这个值;
     document.body.style.overflow = "visible";
-  };
+  }, [visible, afterModal, ref]);
 
   const showModal = () => {
     if (visible) {
@@ -51,7 +51,49 @@ function useModal(
     };
   });
 
-  const modal = <Modal ref={ref} visible={visible} body={props.body}></Modal>;
+  // 缓存计算结果
+  const modal = React.useMemo(() => {
+    console.log("重新计算...");
+    // todo 思考下，这里是不是可以用renderProps来渲染？
+    const wrappedCloseBtn =
+      closeBtn &&
+      React.cloneElement(closeBtn, {
+        // 注：这里只是传了一个onClick属性，react不会这个element上添加事件回调，需要使用者在传closeBtn的时候传入onClick才行
+        onClick: (e: any) => {
+          closeBtn.props.onClick?.(e);
+          hideModal();
+        },
+      });
+    const wrappedOkBtn =
+      okBtn &&
+      React.cloneElement(okBtn, {
+        ...okBtn.props,
+        onClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+          okBtn.props.onClick?.(e);
+          hideModal();
+        },
+      });
+
+    const wrappedCancelBtn =
+      cancelBtn &&
+      React.cloneElement(cancelBtn, {
+        ...cancelBtn.props,
+        onClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+          cancelBtn.props.onClick?.(e);
+          hideModal();
+        },
+      });
+    return (
+      <Modal
+        {...restProps}
+        ref={ref}
+        visible={visible}
+        okBtn={wrappedOkBtn}
+        cancelBtn={wrappedCancelBtn}
+        closeBtn={wrappedCloseBtn}
+      ></Modal>
+    );
+  }, [okBtn, cancelBtn, closeBtn, hideModal]);
 
   return [modal, showModal, hideModal, visible] as const;
 }

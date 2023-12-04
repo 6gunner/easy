@@ -12,9 +12,14 @@ export type ModalProps = {
 };
 
 const Modal = memoFunctionComp<HTMLDivElement, ModalProps>((props, ref) => {
-  const { visible, closeBtn, body, okBtn, cancelBtn, ...resetProps } = props;
+  const { visible, closeBtn, body, okBtn, cancelBtn } = props;
 
   // todo 样式用什么写？jss的用什么好？
+  /**
+   * 思考几个问题：1、怎么让用户扩展样式？
+   *
+   * */
+  console.log("重新渲染....");
   return (
     <div
       role="modal-mask"
@@ -22,10 +27,10 @@ const Modal = memoFunctionComp<HTMLDivElement, ModalProps>((props, ref) => {
       data-visible={visible}
       ref={ref}
     >
-      <div role="modal" className={styles.maskBody()} data-visible={visible}>
-        <div className="modal-header">{closeBtn}</div>
-        <div className="modal-body">{body}</div>
-        <div className="modal-footer">
+      <div role="modal" className={styles.modal()}>
+        <div className={styles.modalHeader()}>{closeBtn}</div>
+        <div className={styles.modalBody()}>{body}</div>
+        <div className={styles.modalFooter()}>
           {okBtn}
           {cancelBtn}
         </div>

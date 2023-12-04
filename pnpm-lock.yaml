@@ -94,6 +94,9 @@ importers:
       animejs:
         specifier: ^3.2.2
         version: 3.2.2
+      classname:
+        specifier: ^0.0.0
+        version: 0.0.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -125,9 +128,15 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      react-router-dom:
+        specifier: ^6.20.1
+        version: 6.20.1(react-dom@18.2.0)(react@18.2.0)
       react-scripts:
         specifier: 5.0.1
-        version: registry.npmmirror.com/react-scripts@5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.54.0)(react@18.2.0)(typescript@4.9.5)
+        version: registry.npmmirror.com/react-scripts@5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.54.0)(react@18.2.0)(sass@1.69.5)(typescript@4.9.5)
+      sass:
+        specifier: ^1.69.5
+        version: 1.69.5
       web-vitals:
         specifier: ^2.1.4
         version: registry.npmmirror.com/web-vitals@2.1.4
@@ -2179,6 +2188,11 @@ packages:
     dev: true
     optional: true
 
+  /@remix-run/router@1.13.1:
+    resolution: {integrity: sha512-so+DHzZKsoOcoXrILB4rqDkMDy7NLMErRdOxvzvOKb507YINKUP4Di+shbTZDhSE/pBZ+vr7XGIpcOO0VLSA+Q==}
+    engines: {node: '>=14.0.0'}
+    dev: false
+
   /@rollup/plugin-babel@5.3.1(@babel/core@7.23.3)(rollup@2.60.2):
     resolution: {integrity: sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==}
     engines: {node: '>= 10.0.0'}
@@ -2771,7 +2785,6 @@ packages:
     dependencies:
       normalize-path: 3.0.0
       picomatch: 2.3.1
-    dev: true
 
   /aproba@2.0.0:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
@@ -3002,6 +3015,10 @@ packages:
       write-file-atomic: 5.0.1
     dev: true
 
+  /binary-extensions@2.2.0:
+    resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
+    engines: {node: '>=8'}
+
   /bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
     dependencies:
@@ -3198,6 +3215,20 @@ packages:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
 
+  /chokidar@3.5.3:
+    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
+    engines: {node: '>= 8.10.0'}
+    dependencies:
+      anymatch: 3.1.3
+      braces: 3.0.2
+      glob-parent: 5.1.2
+      is-binary-path: 2.1.0
+      is-glob: 4.0.3
+      normalize-path: 3.0.0
+      readdirp: 3.6.0
+    optionalDependencies:
+      fsevents: 2.3.3
+
   /chownr@2.0.0:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
@@ -3211,6 +3242,10 @@ packages:
   /cjs-module-lexer@1.2.3:
     resolution: {integrity: sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==}
     dev: true
+
+  /classname@0.0.0:
+    resolution: {integrity: sha512-kkhsspEJdUW+VhuvNzb2sQf0KbafDPfd36dB1qf03Uu42dWZwMQzaQuyNkaRr5ir0ZiAN0+TlH/EOOfwb/aaXg==}
+    dev: false
 
   /clean-stack@2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
@@ -4239,7 +4274,6 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       is-glob: 4.0.3
-    dev: true
 
   /glob-parent@6.0.2:
     resolution: {integrity: sha512-XxwI8EOhVQgWp6iDL+3b0r86f4d6AX6zSU55HfB4ydCEuXLXc5FcYeOu+nnGftS4TEju/11rt4KJPTMgbfmv4A==}
@@ -4503,6 +4537,9 @@ packages:
     resolution: {integrity: sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==}
     engines: {node: '>= 4'}
 
+  /immutable@4.3.4:
+    resolution: {integrity: sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==}
+
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -4604,6 +4641,12 @@ packages:
     dependencies:
       has-bigints: 1.0.2
     dev: true
+
+  /is-binary-path@2.1.0:
+    resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
+    engines: {node: '>=8'}
+    dependencies:
+      binary-extensions: 2.2.0
 
   /is-boolean-object@1.1.2:
     resolution: {integrity: sha512-gDYaKHJmnj4aWxyj6YHyXVpdQawtVLHU5cb+eztPGczf6cjuTdwve5ZIEfgXqH4e57An1D1AKf8CZ3kYrQRqYA==}
@@ -6009,7 +6052,6 @@ packages:
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /npm-bundled@1.1.2:
     resolution: {integrity: sha512-x5DHup0SuyQcmL3s7Rx/YQ8sbw/Hzg0rj48eN0dV7hf5cmQq5PXIeioroH3raV1QC1yh3uTYuMThvEQF3iKgGQ==}
@@ -6641,6 +6683,29 @@ packages:
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
+  /react-router-dom@6.20.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-npzfPWcxfQN35psS7rJgi/EW0Gx6EsNjfdJSAk73U/HqMEJZ2k/8puxfwHFgDQhBGmS3+sjnGbMdMSV45axPQw==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      '@remix-run/router': 1.13.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-router: 6.20.1(react@18.2.0)
+    dev: false
+
+  /react-router@6.20.1(react@18.2.0):
+    resolution: {integrity: sha512-ccvLrB4QeT5DlaxSFFYi/KR8UMQ4fcD8zBcR71Zp1kaYTC5oJKYAp1cbavzGrogwxca+ubjkd7XjFZKBW8CxPA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      '@remix-run/router': 1.13.1
+      react: 18.2.0
+    dev: false
+
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -6737,6 +6802,12 @@ packages:
       process: 0.11.10
       string_decoder: 1.3.0
     dev: true
+
+  /readdirp@3.6.0:
+    resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
+    engines: {node: '>=8.10.0'}
+    dependencies:
+      picomatch: 2.3.1
 
   /redent@3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
@@ -6930,6 +7001,15 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
+
+  /sass@1.69.5:
+    resolution: {integrity: sha512-qg2+UCJibLr2LCVOt3OlPhr/dqVHWOa9XtZf2OjbLs/T4VPSJ00udtgJxH3neXZm+QqX8B+3cU7RaLqp1iVfcQ==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.3.4
+      source-map-js: 1.0.2
 
   /scheduler@0.23.0:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
@@ -9618,7 +9698,7 @@ packages:
       cosmiconfig-typescript-loader: registry.npmmirror.com/cosmiconfig-typescript-loader@1.0.9(@types/node@16.18.64)(cosmiconfig@7.1.0)(typescript@4.9.5)
       cross-spawn: registry.npmmirror.com/cross-spawn@7.0.3
       lodash: registry.npmmirror.com/lodash@4.17.21
-      react-scripts: registry.npmmirror.com/react-scripts@5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.54.0)(react@18.2.0)(typescript@4.9.5)
+      react-scripts: registry.npmmirror.com/react-scripts@5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.54.0)(react@18.2.0)(sass@1.69.5)(typescript@4.9.5)
       semver: registry.npmmirror.com/semver@7.5.4
       webpack-merge: registry.npmmirror.com/webpack-merge@5.10.0
     transitivePeerDependencies:
@@ -12455,12 +12535,6 @@ packages:
     name: big.js
     version: 5.2.2
 
-  registry.npmmirror.com/binary-extensions@2.2.0:
-    resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==, tarball: https://registry.npmmirror.com/binary-extensions/-/binary-extensions-2.2.0.tgz}
-    name: binary-extensions
-    version: 2.2.0
-    engines: {node: '>=8'}
-
   registry.npmmirror.com/bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==, tarball: https://registry.npmmirror.com/bl/-/bl-4.1.0.tgz}
     name: bl
@@ -12788,22 +12862,6 @@ packages:
     resolution: {integrity: sha512-+67P1GkJRaxQD6PKK0Et9DhwQB+vGg3PM5+aavopCpZT1lj9jeqfvpgTLAWErNj8qApkkmXlu/Ug74kmhagkXg==, tarball: https://registry.npmmirror.com/check-types/-/check-types-11.2.3.tgz}
     name: check-types
     version: 11.2.3
-
-  registry.npmmirror.com/chokidar@3.5.3:
-    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==, tarball: https://registry.npmmirror.com/chokidar/-/chokidar-3.5.3.tgz}
-    name: chokidar
-    version: 3.5.3
-    engines: {node: '>= 8.10.0'}
-    dependencies:
-      anymatch: registry.npmmirror.com/anymatch@3.1.3
-      braces: registry.npmmirror.com/braces@3.0.2
-      glob-parent: registry.npmmirror.com/glob-parent@5.1.2
-      is-binary-path: registry.npmmirror.com/is-binary-path@2.1.0
-      is-glob: registry.npmmirror.com/is-glob@4.0.3
-      normalize-path: registry.npmmirror.com/normalize-path@3.0.0
-      readdirp: registry.npmmirror.com/readdirp@3.6.0
-    optionalDependencies:
-      fsevents: 2.3.3
 
   registry.npmmirror.com/chownr@2.0.0:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==, tarball: https://registry.npmmirror.com/chownr/-/chownr-2.0.0.tgz}
@@ -14962,7 +15020,7 @@ packages:
       '@babel/code-frame': 7.22.13
       '@types/json-schema': registry.npmmirror.com/@types/json-schema@7.0.15
       chalk: registry.npmmirror.com/chalk@4.1.2
-      chokidar: registry.npmmirror.com/chokidar@3.5.3
+      chokidar: 3.5.3
       cosmiconfig: registry.npmmirror.com/cosmiconfig@6.0.0
       deepmerge: 4.3.1
       eslint: 8.54.0
@@ -15953,14 +16011,6 @@ packages:
     version: 1.0.4
     dependencies:
       has-bigints: registry.npmmirror.com/has-bigints@1.0.2
-
-  registry.npmmirror.com/is-binary-path@2.1.0:
-    resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==, tarball: https://registry.npmmirror.com/is-binary-path/-/is-binary-path-2.1.0.tgz}
-    name: is-binary-path
-    version: 2.1.0
-    engines: {node: '>=8'}
-    dependencies:
-      binary-extensions: registry.npmmirror.com/binary-extensions@2.2.0
 
   registry.npmmirror.com/is-boolean-object@1.1.2:
     resolution: {integrity: sha512-gDYaKHJmnj4aWxyj6YHyXVpdQawtVLHU5cb+eztPGczf6cjuTdwve5ZIEfgXqH4e57An1D1AKf8CZ3kYrQRqYA==, tarball: https://registry.npmmirror.com/is-boolean-object/-/is-boolean-object-1.1.2.tgz}
@@ -19799,7 +19849,7 @@ packages:
     dependencies:
       nanoid: registry.npmmirror.com/nanoid@3.3.7
       picocolors: registry.npmmirror.com/picocolors@1.0.0
-      source-map-js: registry.npmmirror.com/source-map-js@1.0.2
+      source-map-js: 1.0.2
 
   registry.npmmirror.com/prelude-ls@1.1.2:
     resolution: {integrity: sha512-ESF23V4SKG6lVSGZgYNpbsiaAkdab6ZgOxe52p7+Kid3W3u3bxR4Vfd/o21dmN7jSt0IwgZ4v5MUd26FEtXE9w==, tarball: https://registry.npmmirror.com/prelude-ls/-/prelude-ls-1.1.2.tgz}
@@ -20094,7 +20144,7 @@ packages:
     version: 0.11.0
     engines: {node: '>=0.10.0'}
 
-  registry.npmmirror.com/react-scripts@5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.54.0)(react@18.2.0)(typescript@4.9.5):
+  registry.npmmirror.com/react-scripts@5.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.54.0)(react@18.2.0)(sass@1.69.5)(typescript@4.9.5):
     resolution: {integrity: sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==, tarball: https://registry.npmmirror.com/react-scripts/-/react-scripts-5.0.1.tgz}
     id: registry.npmmirror.com/react-scripts/5.0.1
     name: react-scripts
@@ -20147,7 +20197,7 @@ packages:
       react-refresh: registry.npmmirror.com/react-refresh@0.11.0
       resolve: registry.npmmirror.com/resolve@1.22.8
       resolve-url-loader: registry.npmmirror.com/resolve-url-loader@4.0.0
-      sass-loader: registry.npmmirror.com/sass-loader@12.6.0(webpack@5.89.0)
+      sass-loader: registry.npmmirror.com/sass-loader@12.6.0(sass@1.69.5)(webpack@5.89.0)
       semver: registry.npmmirror.com/semver@7.5.4
       source-map-loader: registry.npmmirror.com/source-map-loader@3.0.2(webpack@5.89.0)
       style-loader: registry.npmmirror.com/style-loader@3.3.3(webpack@5.89.0)
@@ -20304,14 +20354,6 @@ packages:
       inherits: registry.npmmirror.com/inherits@2.0.4
       string_decoder: registry.npmmirror.com/string_decoder@1.3.0
       util-deprecate: registry.npmmirror.com/util-deprecate@1.0.2
-
-  registry.npmmirror.com/readdirp@3.6.0:
-    resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==, tarball: https://registry.npmmirror.com/readdirp/-/readdirp-3.6.0.tgz}
-    name: readdirp
-    version: 3.6.0
-    engines: {node: '>=8.10.0'}
-    dependencies:
-      picomatch: 2.3.1
 
   registry.npmmirror.com/recursive-readdir@2.2.3:
     resolution: {integrity: sha512-8HrF5ZsXk5FAH9dgsx3BlUer73nIhuj+9OrQwEbLTPOBzGkL1lsFCR01am+v+0m2Cmbs1nP12hLDl5FA7EszKA==, tarball: https://registry.npmmirror.com/recursive-readdir/-/recursive-readdir-2.2.3.tgz}
@@ -20629,7 +20671,7 @@ packages:
     name: sanitize.css
     version: 13.0.0
 
-  registry.npmmirror.com/sass-loader@12.6.0(webpack@5.89.0):
+  registry.npmmirror.com/sass-loader@12.6.0(sass@1.69.5)(webpack@5.89.0):
     resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==, tarball: https://registry.npmmirror.com/sass-loader/-/sass-loader-12.6.0.tgz}
     id: registry.npmmirror.com/sass-loader/12.6.0
     name: sass-loader
@@ -20653,6 +20695,7 @@ packages:
     dependencies:
       klona: registry.npmmirror.com/klona@2.0.6
       neo-async: registry.npmmirror.com/neo-async@2.6.2
+      sass: 1.69.5
       webpack: registry.npmmirror.com/webpack@5.89.0
 
   registry.npmmirror.com/sax@1.2.4:
@@ -20985,12 +21028,6 @@ packages:
     name: source-list-map
     version: 2.0.1
 
-  registry.npmmirror.com/source-map-js@1.0.2:
-    resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==, tarball: https://registry.npmmirror.com/source-map-js/-/source-map-js-1.0.2.tgz}
-    name: source-map-js
-    version: 1.0.2
-    engines: {node: '>=0.10.0'}
-
   registry.npmmirror.com/source-map-loader@3.0.2(webpack@5.89.0):
     resolution: {integrity: sha512-BokxPoLjyl3iOrgkWaakaxqnelAJSS+0V+De0kKIq6lyWrXuiPgYTGp6z3iHmqljKAaLXwZa+ctD8GccRJeVvg==, tarball: https://registry.npmmirror.com/source-map-loader/-/source-map-loader-3.0.2.tgz}
     id: registry.npmmirror.com/source-map-loader/3.0.2
@@ -21002,7 +21039,7 @@ packages:
     dependencies:
       abab: registry.npmmirror.com/abab@2.0.6
       iconv-lite: registry.npmmirror.com/iconv-lite@0.6.3
-      source-map-js: registry.npmmirror.com/source-map-js@1.0.2
+      source-map-js: 1.0.2
       webpack: registry.npmmirror.com/webpack@5.89.0
 
   registry.npmmirror.com/source-map-support@0.5.21:
@@ -21489,7 +21526,7 @@ packages:
     dependencies:
       '@alloc/quick-lru': registry.npmmirror.com/@alloc/quick-lru@5.2.0
       arg: registry.npmmirror.com/arg@5.0.2
-      chokidar: registry.npmmirror.com/chokidar@3.5.3
+      chokidar: 3.5.3
       didyoumean: registry.npmmirror.com/didyoumean@1.2.2
       dlv: registry.npmmirror.com/dlv@1.1.3
       fast-glob: registry.npmmirror.com/fast-glob@3.3.2
@@ -22332,7 +22369,7 @@ packages:
       '@types/ws': registry.npmmirror.com/@types/ws@8.5.10
       ansi-html-community: registry.npmmirror.com/ansi-html-community@0.0.8
       bonjour-service: registry.npmmirror.com/bonjour-service@1.1.1
-      chokidar: registry.npmmirror.com/chokidar@3.5.3
+      chokidar: 3.5.3
       colorette: registry.npmmirror.com/colorette@2.0.20
       compression: registry.npmmirror.com/compression@1.7.4
       connect-history-api-fallback: registry.npmmirror.com/connect-history-api-fallback@2.0.0

@@ -19,6 +19,30 @@ export default {
 
   }),
 
-  maskBody: css({})
+  modal: css({
+    width: 'max-content',
+    display: 'inline-block',
+    background: "#151716",
+    border: '1px solid rgba(255, 255, 255, 0.10)',
+    borderRadius: 16,
+    padding: 40,
+    position: "relative",
+  }),
+
+
+  modalHeader: css({
+    color: '#FFF',
+    fontFamily: 'Poppins',
+    fontSize: 32,
+    fontStyle: 'normal',
+    fontWeight: 500,
+    lineHeight: '1',
+    cursor: "pointer"
+  }),
+
+  modalBody: css({
+
+  }),
+  modalFooter: css({})
 }
 

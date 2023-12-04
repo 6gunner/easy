@@ -1,1 +1,0 @@
-export * as useInterval from './useInterval';

@@ -16,6 +16,9 @@ const config: Config = {
     "bp-mobile": '(max-width: 768px)',
   },
   theme: theme,
+  utils: {
+
+  }
 };
 
 export default config;
