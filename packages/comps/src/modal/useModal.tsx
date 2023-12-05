@@ -6,13 +6,14 @@ import type { ModalProps } from "./Modal";
 import type { Fn } from "../types";
 
 function useModal(
-  props: Omit<ModalProps, "visible" | "onClose" | "onCancel" | "onOK">,
+  props: Omit<ModalProps, "visible">,
   options: {
     beforeModal?: Fn;
     afterModal?: Fn;
   } = {}
 ) {
-  const { okBtn, cancelBtn, closeBtn, ...restProps } = props;
+  const { okBtn, onOk, cancelBtn, onCancel, closeBtn, onClose, ...restProps } =
+    props;
 
   const { beforeModal, afterModal } = options;
 
@@ -53,7 +54,6 @@ function useModal(
 
   // 缓存计算结果
   const modal = React.useMemo(() => {
-    console.log("重新计算...");
     // todo 思考下，这里是不是可以用renderProps来渲染？
     const wrappedCloseBtn =
       closeBtn &&
@@ -62,14 +62,16 @@ function useModal(
         onClick: (e: any) => {
           closeBtn.props.onClick?.(e);
           hideModal();
+          onClose && onClose();
         },
       });
     const wrappedOkBtn =
       okBtn &&
       React.cloneElement(okBtn, {
         ...okBtn.props,
-        onClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        onClick: (e: any) => {
           okBtn.props.onClick?.(e);
+          onOk?.();
           hideModal();
         },
       });
@@ -78,8 +80,9 @@ function useModal(
       cancelBtn &&
       React.cloneElement(cancelBtn, {
         ...cancelBtn.props,
-        onClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        onClick: (e: any) => {
           cancelBtn.props.onClick?.(e);
+          onCancel?.();
           hideModal();
         },
       });

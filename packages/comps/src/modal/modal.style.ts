@@ -43,6 +43,12 @@ export default {
   modalBody: css({
 
   }),
-  modalFooter: css({})
+
+  modalFooter: css({
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 16,
+  })
 }
 

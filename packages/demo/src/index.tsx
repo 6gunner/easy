@@ -1,15 +1,39 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import Layout from "./layout";
+import ErrorPage from "./pages/error";
+
 import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+
+const ModalPage = React.lazy(() => import("./pages/ModalPage"));
+const ModalPage2 = React.lazy(() => import("./pages/ModalPage2"));
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "modal",
+        element: <ModalPage />,
+      },
+      {
+        path: "modal2",
+        element: <ModalPage2 />,
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   // <React.StrictMode>
-  <App />
+  <RouterProvider router={router} />
   // </React.StrictMode>
 );
 

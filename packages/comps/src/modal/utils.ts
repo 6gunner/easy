@@ -6,11 +6,11 @@ import { zoom, fade } from '../animation';
  * @param dom 
  */
 const animateToggle = (visible: boolean, dom: HTMLElement) => {
-  // FIXME: 用自定义的className
+  // FIXME: 用自定义的tag-name
   const modal = dom.querySelector('[role="modal"]') as HTMLElement;
   const key = visible ? 'in' : 'out';
   // 调用zoom动画
-  // zoom[`center-${key}`]({ targets: modal });
+  zoom[`center-${key}`]({ targets: modal });
   // 调用fade动画
   fade[key]({
     targets: dom,
