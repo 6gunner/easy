@@ -25,10 +25,13 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
+    "@dev-easy/utils": "workspace:^",
+    "@floating-ui/react": "^0.26.3",
     "@stitches/react": "^1.2.8",
     "@types/animejs": "^3.1.12",
     "animejs": "^3.2.2",
-    "classname": "^0.0.0"
+    "classname": "^0.0.0",
+    "classnames": "^2.3.2"
   },
   "devDependencies": {
     "rollup-plugin-dts": "^6.1.0"

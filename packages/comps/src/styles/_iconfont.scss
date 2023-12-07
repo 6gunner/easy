@@ -1,0 +1,24 @@
+@import "./motion/other";
+$iconfont-css-prefix: "ez-icon";
+@font-face {
+  font-family: "FontAwesome";
+  src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot");
+  src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.woff")
+      format("woff"),
+    url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.ttf")
+      format("truetype"),
+    url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/fonts/fontawesome-webfont.svg?#fontawesomeregular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+.#{$iconfont-css-prefix}-spin::before {
+  display: inline-block;
+  animation: loadingCircle 1s infinite linear;
+}
+.#{$iconfont-css-prefix}-spin {
+  display: inline-block;
+  animation: loadingCircle 1s infinite linear;
+}

@@ -1,0 +1,155 @@
+/**
+ 变量
+ **/
+$ez-prefix: "ez";
+// 中性色
+$color-white: #fff !default;
+$color-gray-2: #fafafa;
+$color-gray-3: #f5f5f5;
+$color-gray-4: #f0f0f0;
+$color-gray-5: #d9d9d9;
+$color-gray-6: #bfbfbf;
+$color-gray-7: #8c8c8c;
+$color-gray-8: #595959;
+$color-gray-9: #434343;
+$color-gray-10: #262626;
+$color-gray-11: #1f1f1f;
+$color-gray-12: #141414;
+$color-black: #000 !default;
+
+// 系统色
+$color-primary: #1890ff; // 全局主色
+$color-secondary: #40a9ff; // 全局次色
+$color-link: #e6f7ff;
+$color-hover: #40a9ff;
+$color-dark: #096dd9;
+
+// 功能色
+$color-success: #67c23a !default;
+$color-warning: #e6a23c !default;
+$color-danger: #f56c6c !default;
+$color-info: #909399 !default;
+
+// 字体系统
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+  "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+  "Liberation Mono", "Courier New", monospace !default;
+$font-family-base: $font-family-sans-serif !default;
+$font-size-base: 14px !default;
+$font-size-sm: 12px !default;
+$font-size-lg: 16px !default;
+$font-weight-base: 400 !default;
+$font-weight-bold: 700 !default;
+$font-weight-bolder: bolder !default;
+// line-height
+$line-height-base: 1.15 !default;
+$line-height-lg: 2 !default;
+$line-height-sm: 1.25 !default;
+// 标题大小
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;
+// body
+$body-bg: $color-white !default;
+$body-color: $color-gray-12 !default;
+$body-text-align: null !default;
+
+// Spacing
+$spacer: 1rem !default;
+
+$border-style-base: solid;
+$border-color-split: transparent;
+
+// headings
+$headings-margin-bottom: $spacer / 2 !default;
+$headings-font-family: null !default;
+$headings-font-style: null !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.2 !default;
+$headings-color: null !default;
+
+// hr
+$hr-color: inherit !default;
+$hr-height: 1px !default;
+$hr-opacity: 0.25 !default;
+$hr-margin-y: $spacer !default;
+
+// Paragraphs
+$paragraph-margin-bottom: 1rem !default;
+
+//link
+$link-color: $color-primary !default;
+$link-decoration: none !default;
+$link-hover-color: $color-hover !default;
+$link-hover-decoration: underline !default;
+
+// code
+$code-font-size: $font-size-sm !default;
+$code-color: $color-gray-9 !default;
+$pre-color: null !default;
+
+// legend
+$legend-margin-bottom: 0.5rem !default;
+$legend-font-size: 1.5rem !default;
+$legend-font-weight: null !default;
+
+// mark
+$mark-padding: 0.2em !default;
+$mark-bg: #fcf8e3 !default;
+
+// btn
+$btn-bg-color: $color-white;
+$btn-border-color: $color-gray-5;
+$btn-border-radius: 2px !default;
+$btn-padding: 4px 15px !default;
+$btn-font-family: $font-family-base !default;
+$btn-font-size: $font-size-base !default;
+$btn-color: rgba($color-black, 0.85);
+$btn-line-height: $line-height-base !default;
+$btn-disabled-opacity: 0.5;
+$btn-shadow-box: 0 2px 0 rgba($color-black, 0.015);
+$btn-height: 32px;
+//不同大小按钮的 padding 和 font size
+$btn-height-sm: 24px;
+$btn-padding-sm: 0 7px !default;
+$btn-font-size-sm: $font-size-sm !default;
+$btn-height-lg: 40px;
+$btn-padding-lg: 6.4px 15px !default;
+$btn-font-size-lg: $font-size-lg !default;
+
+//menu
+$menu-border-color: $color-primary;
+$menu-border-width: 2px;
+$menu-active-color: $color-primary;
+$menu-item-margin: 0 20px;
+$menu-item-min-width: 160px;
+$menu-horizontal-line-height: 48px;
+$menu-vertical-line-height: 40px;
+$menu-item-active-bg: "";
+$menu-box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+  0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+// Animation
+$ease-base-out: cubic-bezier(0.7, 0.3, 0.1, 1);
+$ease-base-in: cubic-bezier(0.9, 0, 0.3, 0.7);
+$ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+$ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+$ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+$ease-out-back: cubic-bezier(0.12, 0.4, 0.29, 1.46);
+$ease-in-back: cubic-bezier(0.71, -0.46, 0.88, 0.6);
+$ease-in-out-back: cubic-bezier(0.71, -0.46, 0.29, 1.46);
+$ease-out-circ: cubic-bezier(0.08, 0.82, 0.17, 1);
+$ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+$ease-in-out-circ: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+$ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+$ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+$ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+
+// Motion
+// ---
+$wave-animation-width: 6px;

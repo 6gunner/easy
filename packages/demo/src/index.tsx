@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import Layout from "./layout";
 import ErrorPage from "./pages/error";
 
@@ -9,6 +8,7 @@ import "./index.css";
 
 const ModalPage = React.lazy(() => import("./pages/ModalPage"));
 const ModalPage2 = React.lazy(() => import("./pages/ModalPage2"));
+const SelectPage = React.lazy(() => import("./pages/SelectPage"));
 
 const router = createBrowserRouter([
   {
@@ -18,11 +18,21 @@ const router = createBrowserRouter([
     children: [
       {
         path: "modal",
-        element: <ModalPage />,
+        children: [
+          {
+            path: "1",
+            element: <ModalPage />,
+          },
+          {
+            path: "2",
+            element: <ModalPage2 />,
+          },
+        ],
       },
       {
-        path: "modal2",
-        element: <ModalPage2 />,
+        path: "select",
+        Component: SelectPage,
+        // element: <SelectPage />,
       },
     ],
   },
@@ -33,7 +43,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   // <React.StrictMode>
-  <RouterProvider router={router} />
+  <React.Suspense fallback={<>loading</>}>
+    <RouterProvider router={router} />
+  </React.Suspense>
   // </React.StrictMode>
 );
 

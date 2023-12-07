@@ -1,0 +1,61 @@
+@import "../../styles/variables";
+@import "../../styles/normalize";
+@import "../../styles/mixins";
+
+.ez-btn {
+  position: relative;
+  display: inline-block;
+  font-weight: $font-weight-base;
+  text-align: center;
+  background-image: none;
+  border: 1px solid;
+  border-radius: $btn-border-radius;
+  box-shadow: $btn-shadow-box;
+  outline: none;
+  transition: all 0.3s $ease-in-out;
+  @include btn-size($btn-padding, $font-size-base, $btn-height);
+  @include btn-style(
+    $btn-bg-color,
+    $btn-border-color,
+    $btn-color,
+    $color-white,
+    $color-hover,
+    $color-hover
+  );
+
+  & > .ez-btn-loading-icon .ez-icon {
+    padding-right: 8px;
+  }
+}
+.ez-btn-sm {
+  @include btn-size($btn-padding-sm, $font-size-sm, $btn-height-sm);
+}
+.ez-btn-lg {
+  @include btn-size($btn-padding-lg, $font-size-lg, $btn-height-lg);
+}
+.ez-btn-primary {
+  @include btn-style($color-primary, $color-primary, $color-white);
+}
+.ez-btn-text {
+  @include btn-style(
+    transparent,
+    transparent,
+    $color-black,
+    rgba($color-black, 0.018),
+    transparent,
+    rgba($color-black, 0.85)
+  );
+}
+.ez-btn-link {
+  @include btn-style(
+    transparent,
+    transparent,
+    $color-primary,
+    transparent,
+    transparent,
+    $color-hover
+  );
+}
+.ez-btn-loading-icon {
+  transition: all 0.3s $ease-in-out;
+}
